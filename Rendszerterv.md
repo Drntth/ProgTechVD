@@ -42,8 +42,7 @@ A projekt ütemezése az alábbi fő feladatok mentén történik:
 
 - **Regisztráció folyamata:** Felhasználói fiók létrehozása az alkalmazásba való belépéshez.
 - **Könyvek böngészése:** A felhasználók által böngészhető könyvek listájának megjelenítése.
-- **Kölcsönzés folyamata:** Felhasználók által kiválasztott könyv kölcsönzése.
-- **Visszahozatal folyamata:** Kölcsönzött könyv visszahozatalának folyamata.
+- **Megvásárlás folyamata:** Felhasználók által kiválasztott könyv megvásárlása.
 
 ## 4. Követelmények
 
@@ -51,8 +50,7 @@ A projekt ütemezése az alábbi fő feladatok mentén történik:
 
 - **Regisztráció:** Felhasználók képesek legyenek regisztrálni az alkalmazásba.
 - **Könyv böngészés:** Felhasználók listázhatják és böngészhetik a rendelkezésre álló könyveket.
-- **Kölcsönzés:** Felhasználók könyveket kölcsönözhetnek.
-- **Visszahozatal:** Felhasználók visszahozhatják a korábban kölcsönzött könyveket.
+- **Vásárlás:** Felhasználók könyveket vásárolhatnak.
 
 ### 4.2 Nem funkcionális követelmények
 
@@ -64,6 +62,7 @@ A projekt ütemezése az alábbi fő feladatok mentén történik:
 ### 5.1 Szereplők
 
 - **Felhasználó:** Regisztrált felhasználók, akik könyveket böngészhetnek, kölcsönözhetnek és visszahozhatnak.
+- **Admin:**: Új könyvek felvétele az adatbázisba, vásárlási folyamatok kezelése.
 
 ### 5.2 Menük
 
@@ -71,7 +70,7 @@ Az alkalmazás menürendszere tartalmazza a következő funkciókat:
 
 - **Könyvek böngészése:** Az elérhető könyvek listájának megjelenítése.
 - **Keresés:** Könyvek keresése cím, szerző vagy kategória alapján.
-- **Kölcsönzés:** Könyvek kölcsönzése.
+- **Vásárlás:** Könyvek vásárlása.
 - **Fiók kezelése:** Felhasználói fiók adatainak és kölcsönzéseinek kezelése.
 
 ## 6. Fizikai Környezet
@@ -106,11 +105,14 @@ Az alkalmazás menürendszere tartalmazza a következő funkciókat:
 - **Táblák:**
   - Felhasználók tábla (users): az alkalmazás felhasználóinak adatait tárolja
   - Könyvek tábla (books): a rendszerben található könyvek adatait tárolja
+  - Rendelések tábla (orders): a felhasználók által indított vásárlások kezeléséhez szükséges adatokat tárolja
+  - Jogosultságok tábla (roles): tartalmazza, hogy egy felhasználó admin vagy regisztrált vásárló
 
 ## 10. Megvalósítási Terv
 - **Backend fejlesztés:**
   - Felhasználókezelés megvalósítása
   - Könyvkezelés megvalósítása
+  - Vásárlás megvalósítása
 - **Frontend fejlesztés:**
   - Felhasználói felület kialakítása és megvalósítása JavaFX segítségével
 
