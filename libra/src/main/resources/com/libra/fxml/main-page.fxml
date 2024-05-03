@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.libra.controllers.MainPageController"
-            prefHeight="400.0" prefWidth="600.0">
-    <!-- TODO: main page -->
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
+    <!-- Menüsor -->
+    <MenuBar prefHeight="26.0" prefWidth="600.0">
+        <menus>
+            <Menu text="Könyvek">
+                <MenuItem text="Könyvek listázása" />
+                <MenuItem text="Új könyv hozzáadása" />
+                <MenuItem text="Könyv törlése" />
+            </Menu>
+            <Menu text="Felhasználók">
+                <MenuItem text="Felhasználók listázása" />
+                <MenuItem text="Felhasználó törlése" />
+            </Menu>
+            <Menu text="Rendelések">
+                <MenuItem text="Rendelések listázása" />
+                <MenuItem text="Rendelések állapota" />
+                <MenuItem text="Rendelések törlése" />
+            </Menu>
+            <Menu text="Profil">
+                <MenuItem text="Felhasználói profilom" />
+                <MenuItem text="Kilépés" />
+            </Menu>
+        </menus>
+    </MenuBar>
+
+    <!-- TODO: main page content -->
+
 </AnchorPane>

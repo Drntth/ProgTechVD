@@ -1,6 +1,7 @@
 package com.libra.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
@@ -32,6 +33,12 @@ public class LoginController {
         loginButton.setOnAction(event -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                displayErrorDialog("Kérjük töltse ki az összes mezőt!");
+                return;
+            }
+
             try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
                 String query = "SELECT * FROM users WHERE username = ? AND password = ?";
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -42,15 +49,23 @@ public class LoginController {
                     System.out.println("Sikeres bejelentkezés: " + username);
                     mainApplication.loadMainPageScene();
                 } else {
-                    System.err.println("Sikertelen bejelentkezés: érvénytelen felhasználónév vagy jelszó");
+                    displayErrorDialog("Érvénytelen felhasználónév vagy jelszó");
                 }
             } catch (SQLException e) {
-                System.err.println("Hiba a bejelentkezés közben: " + e.getMessage());
+                displayErrorDialog("Hiba a bejelentkezés közben: " + e.getMessage());
             }
         });
 
         registrationLink.setOnAction(event -> {
             mainApplication.loadRegisterScene();
         });
+    }
+
+    private void displayErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Hiba");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

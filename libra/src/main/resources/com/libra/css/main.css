@@ -3,3 +3,17 @@
     -fx-background-color: #881798;
     -fx-font-size: 15px;
 }
+
+.menu-bar {
+    -fx-background-color: #903090;
+    -fx-text-fill: white;
+    -fx-fit-to-width: 100;
+}
+
+.menu-bar .menu {
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu .menu-item {
+    -fx-text-fill: white;
+}
