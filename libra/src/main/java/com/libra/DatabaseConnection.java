@@ -1,36 +1,19 @@
 package com.libra;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseConnection {
     private static final String DB_PATH = "db.sqlite3";
-
     public static Connection connect() {
         Connection conn = null;
-        Statement statement = null;
         try {
-            try (InputStream inputStream = DatabaseConnection.class.getResourceAsStream(DB_PATH)) {
-                if (inputStream == null) {
-                    System.err.println("Az adatbázisfájl nem található: " + DB_PATH);
-                    return null;
-                }
-                else{
-                    System.out.println("Sikeres volt a megtalálás " + DB_PATH);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException("Hiba az adatbázisfájl betöltése közben", e);
-            }
-            conn = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
-            statement = conn.createStatement();
-            System.out.println("Adatbáziskapcsolat létrehozva.");
-        } catch (SQLException e) {
-            throw new RuntimeException("Hiba az adatbáziskapcsolat létrehozása közben", e);
+            String dbPrefix = "jdbc:sqlite:";
+            conn = DriverManager.getConnection(dbPrefix + DB_PATH);
+//            System.out.println("Adatbázis kapcsolat létehozva.");
+        } catch (SQLException exception) {
+            System.err.println("Hiba az adatbázis kapcsolatban: " + exception.getMessage());
         }
+
         return conn;
     }
 
