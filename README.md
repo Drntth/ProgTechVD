@@ -16,7 +16,7 @@ Ez a Java alkalmazás egy könyvtárkezelő rendszert valósít meg, amely felha
 
 - **Java nyelv**: Az alkalmazás teljes mértékben Java nyelven íródott.
 
-- **Ablakos alkalmazás**: Az alkalmazás ablakos felhasználói felülettel rendelkezik, de tervezhető, hogy mobil eszközökre is optimalizálva legyen.
+- **Ablakos alkalmazás**: Az alkalmazás ablakos felhasználói felülettel rendelkezik.
 
 - **Adatok tárolása adatbázisban**: Az alkalmazás adatbázisrétege JDBC-t használ a könyvek tárolására és kezelésére.
 
