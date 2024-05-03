@@ -1,6 +1,7 @@
 module com.libra {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.libra to javafx.fxml;
