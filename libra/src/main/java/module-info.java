@@ -5,4 +5,6 @@ module com.libra {
 
     opens com.libra to javafx.fxml;
     exports com.libra;
+    exports com.libra.controllers;
+    opens com.libra.controllers to javafx.fxml;
 }

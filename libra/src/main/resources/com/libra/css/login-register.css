@@ -1,0 +1,21 @@
+.root {
+    -fx-font-family: 'Times New Roman';
+    -fx-background-color: rgba(136, 23, 152, 0.3);
+    -fx-font-size: 15px;
+}
+
+.title-label {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-padding: 50 0 0 0;
+}
+
+.input-label {
+    -fx-font-size: 18px;
+}
+
+.input-link {
+    -fx-text-fill: #881798;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}

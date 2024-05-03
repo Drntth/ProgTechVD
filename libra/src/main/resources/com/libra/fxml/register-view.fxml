@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400" prefWidth="600" stylesheets="@../css/login-register.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.RegisterController">
+    <top>
+        <VBox alignment="CENTER" spacing="10">
+            <Label styleClass="title-label" text="Regisztráció" />
+        </VBox>
+    </top>
+    <left>
+        <ImageView preserveRatio="true">
+            <Image url="@../img/logo.png" />
+        </ImageView>
+    </left>
+    <center>
+        <GridPane alignment="center" hgap="10" vgap="10">
+            <Label styleClass="input-label" text="Név:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="nameField" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label styleClass="input-label" text="Felhasználónév:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="usernameField" promptText="username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label styleClass="input-label" text="Email cím:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="emailField" promptText="email address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label styleClass="input-label" text="Jelszó:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <PasswordField fx:id="passwordField" promptText="password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label styleClass="input-label" text="Jelszó újra:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <PasswordField fx:id="passwordAgainField" promptText="password again" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <Button fx:id="registerButton" text="Regisztráció" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </center>
+    <bottom>
+        <GridPane alignment="center" hgap="10" vgap="10">
+            <padding><Insets bottom="10.0" /></padding>
+            <Label styleClass="input-label" text="Már regisztrált?" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Hyperlink fx:id="loginLink" styleClass="input-link" text="Lépjen be!" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </bottom>
+</BorderPane>
