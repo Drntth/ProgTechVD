@@ -3,3 +3,27 @@
     -fx-background-color: #881798;
     -fx-font-size: 15px;
 }
+
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.input-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}

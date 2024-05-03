@@ -1,5 +1,6 @@
 package com.libra;
 
+import com.libra.controllers.AddBookController;
 import com.libra.controllers.LoginController;
 import com.libra.controllers.MainPageController;
 import com.libra.controllers.RegisterController;
@@ -36,6 +37,8 @@ public class MainApplication extends Application {
             Scene loginScene = new Scene(loginRoot, 600, 400);
             loginScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/login-register.css")).toExternalForm());
             stage.setScene(loginScene);
+            stage.setTitle("Bejelentkezés");
+            stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,6 +54,7 @@ public class MainApplication extends Application {
             registerScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/login-register.css")).toExternalForm());
             stage.setScene(registerScene);
             stage.setTitle("Regisztráció");
+            stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,6 +75,23 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
+
+    public void loadAddBookScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/addBook-view.fxml"));
+            Parent addBookRoot = loader.load();
+            AddBookController addBookController = loader.getController();
+            addBookController.setApp(this);
+            Scene addBookScene = new Scene(addBookRoot, 600, 400);
+            addBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/addBook.css")).toExternalForm());
+            stage.setScene(addBookScene);
+            stage.setTitle("Könyv hozzáadása");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void main(String[] args) {
         launch();
