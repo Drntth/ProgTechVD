@@ -7,4 +7,6 @@ public class MainPageController {
     public void setApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
     }
+
+    // TODO: main page controller
 }
