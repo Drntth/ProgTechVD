@@ -37,5 +37,5 @@ Ez a Java alkalmazás egy könyvtárkezelő rendszert valósít meg, amely felha
 ## Közreműködők
 
 - Sipos Valentin Dominik (JPCM1W)
-- 
+- Tóth Dorina Ildikó (FYA26Y)
 
