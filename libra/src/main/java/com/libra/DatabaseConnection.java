@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class DatabaseConnection {
     private static final String DB_PATH = "db.sqlite3";
+
     public static Connection connect() {
         Connection conn = null;
         try {
@@ -29,7 +30,7 @@ public class DatabaseConnection {
             conn = null;
             statement = null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Hiba a kapcsolat megszakítása közben: " + e.getMessage());
             success = false;
         }
         return success;

@@ -22,8 +22,7 @@ public class DatabaseConnectionTest {
         try {
             statement = conn.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
-            fail("Nem sikerült létrehozni az utasítást.");
+            fail("Nem sikerült létrehozni az utasítást: " + e.getMessage());
         }
     }
 
@@ -54,13 +53,12 @@ public class DatabaseConnectionTest {
 
             assertFalse(rs.next(), "Az eredményhalmaznak nem szabad több sorral rendelkeznie.");
         } catch (SQLException e) {
-            e.printStackTrace();
             fail("Az adatbázisművelet sikertelen: " + e.getMessage());
         } finally {
             try {
                 statement.executeUpdate("drop table if exists person");
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                fail("A person táblát nem lehet törölni: " + e.getMessage());
             }
         }
     }
