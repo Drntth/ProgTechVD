@@ -73,3 +73,64 @@ Az alkalmazás menürendszere tartalmazza a következő funkciókat:
 - **Keresés:** Könyvek keresése cím, szerző vagy kategória alapján.
 - **Kölcsönzés:** Könyvek kölcsönzése.
 - **Fiók kezelése:** Felhasználói fiók adatainak és kölcsönzéseinek kezelése.
+
+## 6. Fizikai Környezet
+
+### Szoftver Komponensek
+- Java Runtime Environment (JRE) 8 vagy újabb verzió
+- JavaFX 8 vagy újabb verzió (ha JavaFX-t használunk)
+
+### Hardver
+- Minimum 2 GB RAM
+- Legalább 1 GHz-es processzor
+- Legalább 100 MB szabad tárhely a futtatható állományoknak és az adatbázisnak
+
+### Alrendszerek
+- Operációs rendszer: Windows 7 vagy újabb, macOS, vagy Linux
+
+### Fejlesztő Eszközök
+- Java fejlesztőkörnyezet (pl. IntelliJ IDEA, Eclipse, NetBeans)
+
+## 8. Architekturális Terv
+
+### Web Szerver
+- Nem alkalmazunk web szervert ebben a rendszerben.
+
+### Adatbázis
+- SQLite adatbázisrendszer
+
+### Program Hozzáférés
+- JDBC (Java Database Connectivity) API az adatbázishoz való hozzáféréshez
+
+## 9. Adatbázis Terv
+- **Táblák:**
+  - Felhasználók tábla (users): az alkalmazás felhasználóinak adatait tárolja
+  - Könyvek tábla (books): a rendszerben található könyvek adatait tárolja
+
+## 10. Megvalósítási Terv
+- **Backend fejlesztés:**
+  - Felhasználókezelés megvalósítása
+  - Könyvkezelés megvalósítása
+- **Frontend fejlesztés:**
+  - Felhasználói felület kialakítása és megvalósítása JavaFX segítségével
+
+## 11. Teszt Terv
+- **Egységtesztek:**
+  - Backend egységtesztelése JUnit keretrendszerrel
+  - Felhasználói felület tesztelése manuális és automatizált tesztekkel
+
+## 12. Telepítési Terv
+
+### Fizikai Telepítés:
+- A rendszer telepítése a szerver hardverére vagy a felhasználók számítógépeire
+
+### Szoftver Telepítés:
+- SQLite adatbázisrendszer telepítése
+- SQLite JDBC driver telepítése
+- A könyvtárkezelő alkalmazás futtatható fájljainak telepítése
+
+## 13. Karbantartási Terv
+- **Rendszerfrissítések:**
+  - A Java és a JavaFX verzióinak frissítése, ha szükséges
+- **Adatbázis karbantartás:**
+  - Adatbázis mentési rutinok kialakítása és futtatása rendszeresen
