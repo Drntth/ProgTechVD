@@ -58,7 +58,7 @@ public class MainApplication extends Application {
 
     public void loadMainPageScene(){
         try {
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/main-page-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/main-page.fxml"));
             Parent mainRoot = loader.load();
             MainPageController mainController = loader.getController();
             mainController.setApp(this);
