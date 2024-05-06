@@ -2,6 +2,10 @@ package com.libra.factories;
 
 import com.libra.models.Book;
 
-public interface BookFactory {
-    Book createBook(String title, String author, double price, int amount);
+public class BookFactory {
+    public Book createBook(String title, String author, double price, int amount) {
+        Book book = new Book(title, author, price, amount);
+        return book;
+    }
 }
+

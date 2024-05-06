@@ -2,7 +2,6 @@ package com.libra;
 
 import com.libra.controllers.AddBookController;
 import com.libra.factories.BookFactory;
-import com.libra.factories.MockBookFactory;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -13,8 +12,9 @@ public class AddBookTest {
 
     @Test
     void testAddBook() {
-        BookFactory bookFactory = new MockBookFactory();
-        AddBookController addBookController = new AddBookController(bookFactory);
+        BookFactory bookFactory = new BookFactory();
+        AddBookController addBookController = new AddBookController();
+        addBookController.setBookFactory(bookFactory);
 
         String title = "Teszt könyv címe";
         String author = "Teszt szerző";

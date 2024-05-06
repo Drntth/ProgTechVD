@@ -14,16 +14,14 @@
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="com.libra.controllers.AddBookController">
     <top>
-        <HBox alignment="CENTER_RIGHT" padding="10">
-            <Button fx:id="homeButton" text="Főoldal" />
-        </HBox>
-        <Label styleClass="title-label" text="Könyv hozzáadása" />
+        <MenuBar>
+            <Menu text="Főoldal">
+                <MenuItem text="Főoldal" onAction="#home"/>
+            </Menu>
+        </MenuBar>
     </top>
     <center>
-        <GridPane alignment="CENTER" hgap="10" vgap="10">
-            <padding>
-                <Insets bottom="10.0" />
-            </padding>
+        <GridPane alignment="CENTER">
             <Label styleClass="input-label" text="Cím:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="titleField" promptText="Cím" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Label styleClass="input-label" text="Szerző:" GridPane.columnIndex="0" GridPane.rowIndex="1" />

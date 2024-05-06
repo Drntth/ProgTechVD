@@ -3,3 +3,28 @@
     -fx-background-color: #881798;
     -fx-font-size: 15px;
 }
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-column .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-row-cell {
+    -fx-font-size: 14px;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #cceeff;
+}

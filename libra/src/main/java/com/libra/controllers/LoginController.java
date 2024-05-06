@@ -46,7 +46,6 @@ public class LoginController {
                 stmt.setString(2, password);
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
-                    System.out.println("Sikeres bejelentkezés: " + username);
                     mainApplication.loadMainPageScene();
                 } else {
                     displayErrorDialog("Érvénytelen felhasználónév vagy jelszó");

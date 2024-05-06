@@ -2,7 +2,6 @@ package com.libra;
 
 import com.libra.controllers.*;
 import com.libra.factories.BookFactory;
-import com.libra.factories.MockBookFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,16 +14,9 @@ import java.util.Objects;
 
 public class MainApplication extends Application {
     private Stage stage;
+    MainPageController mainPageController = new MainPageController();
     @Override
     public void start(Stage stage) throws IOException {
-        BookFactory bookFactory = new MockBookFactory();
-        AddBookController addBookController = new AddBookController(bookFactory);
-        DeleteBookController deleteBookController = new DeleteBookController();
-        MainPageController mainPageController = new MainPageController();
-
-        addBookController.addObserver(mainPageController);
-        deleteBookController.addObserver(mainPageController);
-
         this.stage = stage;
         stage.setTitle("Bejelentkezés");
         stage.setResizable(false);
@@ -89,10 +81,52 @@ public class MainApplication extends Application {
             Parent addBookRoot = loader.load();
             AddBookController addBookController = loader.getController();
             addBookController.setApp(this);
+
+            BookFactory bookFactory = new BookFactory();
+            addBookController.setBookFactory(bookFactory);
+
+            addBookController.addObserver(mainPageController);
+
             Scene addBookScene = new Scene(addBookRoot, 600, 400);
             addBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/addBook.css")).toExternalForm());
             stage.setScene(addBookScene);
             stage.setTitle("Könyv hozzáadása");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void loadDeleteBookScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/deleteBook-view.fxml"));
+            Parent deleteBookRoot = loader.load();
+            DeleteBookController deleteBookController = loader.getController();
+            deleteBookController.setApp(this);
+
+            deleteBookController.addObserver(mainPageController);
+
+            Scene deleteBookScene = new Scene(deleteBookRoot, 600, 400);
+            deleteBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/deleteBook.css")).toExternalForm());
+            stage.setScene(deleteBookScene);
+            stage.setTitle("Könyv eltávolítása");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadListBookScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/listBooks-view.fxml"));
+            Parent listBookRoot = loader.load();
+            ListBooksController listBookController = loader.getController();
+            listBookController.setApp(this);
+            Scene listBookScene = new Scene(listBookRoot, 1024, 768);
+            listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/listBooks.css")).toExternalForm());
+            stage.setScene(listBookScene);
+            stage.setTitle("Könyv megrendelése");
             stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();

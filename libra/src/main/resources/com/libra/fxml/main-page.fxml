@@ -6,9 +6,9 @@
 <AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
     <MenuBar prefHeight="26.0" prefWidth="1024.0">
         <Menu text="Könyvek">
-            <MenuItem text="Könyvek listázása"/>
-            <MenuItem text="Új könyv hozzáadása"/>
-            <MenuItem text="Könyv törlése"/>
+            <MenuItem text="Könyvek listázása" onAction="#listBooks"/>
+            <MenuItem text="Új könyv hozzáadása" onAction="#addBook"/>
+            <MenuItem text="Könyv törlése" onAction="#deleteBook"/>
         </Menu>
         <Menu text="Felhasználók">
             <MenuItem text="Felhasználók listázása"/>

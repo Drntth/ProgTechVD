@@ -27,19 +27,25 @@ public class AddBookController {
     @FXML
     private Button addButton;
     @FXML
-    private Button homeButton;
+    private void home() {
+        mainApplication.loadMainPageScene();
+    }
 
     public void setApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
     }
 
-    public AddBookController(BookFactory bookFactory) {
-        this.bookFactory = bookFactory;
+    public AddBookController() {
+
     }
 
     @FXML
     private void initialize() {
         addButton.setOnAction(event -> addBook());
+    }
+
+    public void setBookFactory(BookFactory bookFactory) {
+        this.bookFactory = bookFactory;
     }
 
     @FXML
@@ -74,7 +80,6 @@ public class AddBookController {
                 int rowsAffected = stmt.executeUpdate();
                 if (rowsAffected > 0) {
                     notifyObservers(book.getTitle());
-                    // System.out.println("A könyv hozzáadva: " + title);
                 } else {
                     System.err.println("Nem sikerült hozzáadni a könyvet.");
                 }
@@ -82,10 +87,6 @@ public class AddBookController {
         } catch (SQLException e) {
             System.err.println("Hiba a könyv hozzáadása közben: " + e.getMessage());
         }
-
-        homeButton.setOnAction(event -> {
-            mainApplication.loadMainPageScene();
-        });
 
         mainApplication.loadMainPageScene();
     }
