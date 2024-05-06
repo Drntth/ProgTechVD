@@ -5,15 +5,17 @@
 }
 
 .menu-bar {
-    -fx-background-color: #903090;
-    -fx-text-fill: white;
-    -fx-fit-to-width: 100;
+    -fx-background-color: #333333;
 }
 
-.menu-bar .menu {
+.menu-bar .label {
     -fx-text-fill: white;
 }
 
-.menu-bar .menu .menu-item {
-    -fx-text-fill: white;
+.menu, .menu-item .label{
+    -fx-text-fill: #000000;
+}
+
+.menu-item:hover {
+    -fx-background-color: #CCCCCC;
 }

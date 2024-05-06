@@ -3,29 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
-    <!-- Menüsor -->
-    <MenuBar prefHeight="26.0" prefWidth="600.0">
-        <menus>
-            <Menu text="Könyvek">
-                <MenuItem text="Könyvek listázása" />
-                <MenuItem text="Új könyv hozzáadása" />
-                <MenuItem text="Könyv törlése" />
-            </Menu>
-            <Menu text="Felhasználók">
-                <MenuItem text="Felhasználók listázása" />
-                <MenuItem text="Felhasználó törlése" />
-            </Menu>
-            <Menu text="Rendelések">
-                <MenuItem text="Rendelések listázása" />
-                <MenuItem text="Rendelések állapota" />
-                <MenuItem text="Rendelések törlése" />
-            </Menu>
-            <Menu text="Profil">
-                <MenuItem text="Felhasználói profilom" />
-                <MenuItem text="Kilépés" />
-            </Menu>
-        </menus>
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
+    <MenuBar prefHeight="26.0" prefWidth="1024.0">
+        <Menu text="Könyvek">
+            <MenuItem text="Könyvek listázása"/>
+            <MenuItem text="Új könyv hozzáadása"/>
+            <MenuItem text="Könyv törlése"/>
+        </Menu>
+        <Menu text="Felhasználók">
+            <MenuItem text="Felhasználók listázása"/>
+            <MenuItem text="Felhasználó törlése"/>
+        </Menu>
+        <Menu text="Rendelések">
+            <MenuItem text="Rendelések listázása"/>
+            <MenuItem text="Rendelések állapota"/>
+            <MenuItem text="Rendelések törlése"/>
+        </Menu>
+        <Menu text="Profil">
+            <MenuItem text="Felhasználói profilom"/>
+            <MenuItem text="Kilépés"/>
+        </Menu>
     </MenuBar>
 
     <!-- TODO: main page content -->
