@@ -1,9 +1,8 @@
 package com.libra;
 
-import com.libra.controllers.AddBookController;
-import com.libra.controllers.LoginController;
-import com.libra.controllers.MainPageController;
-import com.libra.controllers.RegisterController;
+import com.libra.controllers.*;
+import com.libra.factories.BookFactory;
+import com.libra.factories.MockBookFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +17,14 @@ public class MainApplication extends Application {
     private Stage stage;
     @Override
     public void start(Stage stage) throws IOException {
+        BookFactory bookFactory = new MockBookFactory();
+        AddBookController addBookController = new AddBookController(bookFactory);
+        DeleteBookController deleteBookController = new DeleteBookController();
+        MainPageController mainPageController = new MainPageController();
+
+        addBookController.addObserver(mainPageController);
+        deleteBookController.addObserver(mainPageController);
+
         this.stage = stage;
         stage.setTitle("Bejelentkezés");
         stage.setResizable(false);
