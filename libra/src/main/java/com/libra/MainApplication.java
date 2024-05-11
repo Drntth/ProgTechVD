@@ -8,7 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import com.libra.models.CurrentUser;
+import javafx.stage.StageStyle;
 
+import java.util.List;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -155,11 +158,13 @@ public class MainApplication extends Application {
             Parent root = loader.load();
             ProfileController controller = loader.getController();
             controller.setApp(this);
-            controller.setCurrentUser(currentUser);
             Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/profile.css")).toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Profil szerkesztése");
             stage.centerOnScreen();
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

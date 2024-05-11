@@ -1,6 +1,7 @@
 package com.libra.controllers;
 
 import com.libra.MainApplication;
+import com.libra.models.CurrentUser;
 import com.libra.observers.BookAddedObserver;
 import com.libra.observers.BookDeletedObserver;
 import javafx.fxml.FXML;
@@ -15,6 +16,12 @@ public class MainPageController implements BookAddedObserver, BookDeletedObserve
     @FXML
     private void listBooks() {
         mainApplication.loadListBookScene();
+    }
+
+    @FXML
+    private void logout() {
+        CurrentUser.removeFirstUser();
+        mainApplication.loadLoginScene();
     }
 
     @FXML

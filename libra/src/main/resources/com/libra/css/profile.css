@@ -1,5 +1,46 @@
 .root {
-    -fx-font-family: 'Times New Roman';
-    -fx-background-color: #881798;
-    -fx-font-size: 15px;
+    -fx-font-family: "Arial";
+    -fx-background-color: #f0f0f0;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.text-field, .password-field {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #cccccc;
+    -fx-padding: 5px;
+}
+
+.button {
+    -fx-pref-width: 100px;
+    -fx-font-size: 14px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+.anchor-pane > .vbox {
+    -fx-vgrow: always;
+    -fx-hgrow: always;
+}
+
+.anchor-pane {
+    -fx-padding: 20px;
 }

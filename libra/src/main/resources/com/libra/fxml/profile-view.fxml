@@ -2,23 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.libra.controllers.ProfileController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <VBox alignment="CENTER" spacing="10" padding="20">
+    <VBox styleClass="vbox" spacing="10">
         <Label text="Profil szerkesztése" style="-fx-font-size: 20px;" />
-        <GridPane hgap="10" vgap="5">
-            <ColumnConstraints hgrow="NEVER" />
-            <ColumnConstraints hgrow="ALWAYS" />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </GridPane>
 
         <Label text="Név:" />
         <TextField fx:id="nameField" />

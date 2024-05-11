@@ -18,8 +18,8 @@
             <MenuItem text="Rendeléseim állapota"/>
         </Menu>
         <Menu text="Profil">
-            <MenuItem text="Felhasználói profilom"/>
-            <MenuItem text="Kilépés"/>
+            <MenuItem text="Felhasználói profilom" onAction="#profilChanging"/>
+            <MenuItem text="Kilépés" onAction="#logout"/>
         </Menu>
     </MenuBar>
 

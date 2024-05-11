@@ -21,7 +21,7 @@
         </Menu>
         <Menu text="Profil">
             <MenuItem text="Felhasználói profilom"/>
-            <MenuItem text="Kilépés"/>
+            <MenuItem text="Kilépés" onAction="#logout"/>
         </Menu>
     </MenuBar>
 

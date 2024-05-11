@@ -1,5 +1,8 @@
 package com.libra.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CurrentUser {
     private int id;
     private String name;
@@ -7,12 +10,15 @@ public class CurrentUser {
     private String email;
     private int roleId;
 
+    private static List<CurrentUser> currentUserList = new ArrayList<>();
+
     public CurrentUser(int id, String name, String username, String email, int roleId) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.roleId = roleId;
+        currentUserList.add(this);
     }
 
     public int getId() {
@@ -64,6 +70,16 @@ public class CurrentUser {
                 ", email='" + email + '\'' +
                 ", roleId=" + roleId +
                 '}';
+    }
+
+    public static List<CurrentUser> getCurrentUserList() {
+        return currentUserList;
+    }
+
+    public static void removeFirstUser() {
+        if (!currentUserList.isEmpty()) {
+            currentUserList.remove(0);
+        }
     }
 }
 

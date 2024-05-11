@@ -14,6 +14,7 @@ import com.libra.models.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.libra.models.CurrentUser;
+import java.util.List;
 
 import java.sql.*;
 
@@ -35,7 +36,17 @@ public class ListBooksController {
     private TableColumn<Book, Void> orderColumn;
     @FXML
     private void home() {
-        mainApplication.loadMainPageScene();
+        int id = 0;
+        int roleId = accessFirstUserRole(id);
+        if(roleId == 2){
+            mainApplication.loadMainPageUserScene();
+        } else if (roleId == 1) {
+            mainApplication.loadMainPageScene();
+        }
+        else {
+            System.out.print("Nem sikerült a terved Valentin");
+        }
+
     }
 
     @FXML
@@ -100,6 +111,20 @@ public class ListBooksController {
             return cell;
         });
 
+    }
+
+    public int accessFirstUserRole(int roleId) {
+        List<CurrentUser> userList = CurrentUser.getCurrentUserList();
+
+        if (!userList.isEmpty()) {
+            CurrentUser firstUser = userList.get(0);
+
+            int firstUserRole = firstUser.getRoleId();
+
+            return firstUserRole;
+        } else {
+            return 0;
+        }
     }
 
     public void setApp(MainApplication mainApplication) {
