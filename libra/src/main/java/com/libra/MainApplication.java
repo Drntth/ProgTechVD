@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class MainApplication extends Application {
     private Stage stage;
+    private String currentUser;
     MainPageController mainPageController = new MainPageController();
     @Override
     public void start(Stage stage) throws IOException {
@@ -67,6 +68,21 @@ public class MainApplication extends Application {
             mainController.setApp(this);
             Scene mainScene = new Scene(mainRoot, 1024, 768);
             mainScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/main.css")).toExternalForm());
+            stage.setScene(mainScene);
+            stage.setTitle("Főoldal");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadMainPageUserScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/main-page-user.fxml"));
+            Parent mainRoot = loader.load();
+            MainPageUserController mainController = loader.getController();
+            mainController.setApp(this);
+            Scene mainScene = new Scene(mainRoot, 1024, 768);
+            mainScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/mainUser.css")).toExternalForm());
             stage.setScene(mainScene);
             stage.setTitle("Főoldal");
             stage.centerOnScreen();
@@ -131,6 +147,30 @@ public class MainApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadProfileScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/com/libra/fxml/profile-view.fxml"));
+            Parent root = loader.load();
+            ProfileController controller = loader.getController();
+            controller.setApp(this);
+            controller.setCurrentUser(currentUser);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Profil szerkesztése");
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
     }
 
 

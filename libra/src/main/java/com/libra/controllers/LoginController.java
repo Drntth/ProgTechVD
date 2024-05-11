@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.libra.models.CurrentUser;
 
 public class LoginController {
     private MainApplication mainApplication;
@@ -46,7 +47,22 @@ public class LoginController {
                 stmt.setString(2, password);
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
-                    mainApplication.loadMainPageScene();
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    int roleId = rs.getInt("role_id");
+                    CurrentUser currentUser = new CurrentUser(id, name, username, email, roleId);
+                    System.out.println("ID: " + currentUser.getId());
+                    System.out.println("Név: " + currentUser.getName());
+                    System.out.println("Felhasználónév: " + currentUser.getUsername());
+                    System.out.println("E-mail cím: " + currentUser.getEmail());
+                    System.out.println("Szerepkör ID: " + currentUser.getRoleId());
+                    if(currentUser.getId() == 1) {
+                        mainApplication.loadMainPageScene();
+                    } else {
+                        mainApplication.loadMainPageUserScene();
+                    }
+
                 } else {
                     displayErrorDialog("Érvénytelen felhasználónév vagy jelszó");
                 }

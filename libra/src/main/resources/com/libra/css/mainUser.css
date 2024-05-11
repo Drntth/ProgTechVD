@@ -1,0 +1,21 @@
+.root {
+    -fx-font-family: 'Times New Roman';
+    -fx-background-color: #881798;
+    -fx-font-size: 15px;
+}
+
+.menu-bar {
+    -fx-background-color: #333333;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
+.menu, .menu-item .label{
+    -fx-text-fill: #000000;
+}
+
+.menu-item:hover {
+    -fx-background-color: #CCCCCC;
+}
