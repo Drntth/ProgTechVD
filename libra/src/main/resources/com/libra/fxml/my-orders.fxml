@@ -11,27 +11,35 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.libra.controllers.MyOrdersController"
       alignment="CENTER"
-      prefWidth="1024" prefHeight="768">
+      prefWidth="800" prefHeight="600">
 
-    <MenuBar>
-        <Menu text="Főoldal">
-            <MenuItem text="Főoldal" onAction="#home"/>
+    <MenuBar prefHeight="30.0" prefWidth="800.0">
+        <Menu text="Libra">
+            <MenuItem text="Kezdő oldal" onAction="#home"/>
+            <MenuItem text="Könyvek vásárlása" onAction="#shopScene"/>
+        </Menu>
+        <Menu text="Rendelések">
+            <MenuItem text="Rendeléseim listázása" onAction="#listMyOrders"/>
+        </Menu>
+        <Menu text="Profil">
+            <MenuItem text="Felhasználói profilom" onAction="#profile"/>
+            <MenuItem text="Kilépés" onAction="#logout"/>
         </Menu>
     </MenuBar>
 
-    <TableView fx:id="ordersTableView" prefHeight="768">
+    <TableView fx:id="ordersTableView" prefHeight="600">
         <columns>
-            <TableColumn text="Fizetendő" prefWidth="150" fx:id="priceColumn">
+            <TableColumn text="Fizetendő" prefWidth="200" fx:id="priceColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="price"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Mennyiség" prefWidth="150" fx:id="amountColumn">
+            <TableColumn text="Mennyiség" prefWidth="200" fx:id="amountColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="amount"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Szállítási cím" prefWidth="150" fx:id="addressColumn">
+            <TableColumn text="Szállítási cím" prefWidth="400" fx:id="addressColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="address"/>
                 </cellValueFactory>

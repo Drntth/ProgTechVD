@@ -2,22 +2,22 @@ package com.libra.controllers;
 
 import com.libra.MainApplication;
 import com.libra.models.Order;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import com.libra.exceptions.DatabaseException;
+import com.libra.dao.OrderDAO;
+import com.libra.models.CurrentUser;
+import com.libra.util.MessageHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import com.libra.models.CurrentUser;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class MyOrdersController {
     private MainApplication mainApplication;
+    private OrderDAO orderDAO;
 
     @FXML
     private TableView<Order> ordersTableView;
@@ -31,81 +31,61 @@ public class MyOrdersController {
     @FXML
     private TableColumn<Order, Double> priceColumn;
 
-
-    @FXML
-    private void home() {
-        mainApplication.loadMainPageUserScene();
+    public void setApp(MainApplication mainApplication) {
+        this.mainApplication = mainApplication;
+        this.orderDAO = new OrderDAO();
+        loadOrdersForCurrentUser();
     }
 
     @FXML
-    private void initialize() {
+    private void listBook() {
+        mainApplication.loadListBookScene();
+    }
+    @FXML
+    private void listMyOrders(){
+        mainApplication.loadMyOrdersPage();
+    }
+    @FXML
+    private void profile() {
+        mainApplication.loadProfileScene();
+    }
+    @FXML
+    private void shopScene() {
+        mainApplication.loadShopScene();
+    }
+    @FXML
+    private void home(){
+        mainApplication.loadMainPageUserScene();
+    }
+    @FXML
+    private void logout() {
+        CurrentUser.removeFirstUser();
+        mainApplication.loadLoginScene();
+    }
+
+    private void loadOrdersForCurrentUser() {
         try {
-            String currentUsername = getCurrentUsername();
-            int userId = getUserIdByUsername(currentUsername);
-
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:db.sqlite3");
-            String query = "SELECT user_id, address, book_id, amount, price, state_id FROM orders WHERE user_id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            ObservableList<Order> orders = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                int fetchedUserId = resultSet.getInt("user_id");
-                String address = resultSet.getString("address");
-                int bookId = resultSet.getInt("book_id");
-                int amount = resultSet.getInt("amount");
-                double price = resultSet.getDouble("price");
-                int stateId = resultSet.getInt("state_id");
-
-                Order order = new Order(fetchedUserId, address, bookId, amount, price, stateId);
-                orders.add(order);
+            CurrentUser currentUser = getCurrentUser();
+            if (currentUser != null) {
+                int userId = currentUser.getId();
+                List<Order> orders = orderDAO.getOrdersByUserId(userId);
+                displayOrders(orders);
             }
-
-            addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-            amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-            priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-            ordersTableView.setItems(orders);
-
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (DatabaseException e) {
+            MessageHandler.showError("Hiba az adatok betöltésekor: " + e.getMessage());
         }
     }
 
-    private String getCurrentUsername() {
-        List<CurrentUser> userList = CurrentUser.getCurrentUserList();
-        if (!userList.isEmpty()) {
-            return userList.get(0).getUsername();
+    private CurrentUser getCurrentUser() {
+        List<CurrentUser> currentUserList = CurrentUser.getCurrentUserList();
+        if (!currentUserList.isEmpty()) {
+            return currentUserList.get(0);
         }
         return null;
     }
 
-    private int getUserIdByUsername(String username) {
-        int userId = 0;
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
-            String query = "SELECT id FROM users WHERE username = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                userId = resultSet.getInt("id");
-            }
-
-            resultSet.close();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userId;
-    }
-
-    public void setApp(MainApplication mainApplication) {
-        this.mainApplication = mainApplication;
+    private void displayOrders(List<Order> orders) {
+        ObservableList<Order> observableOrders = FXCollections.observableArrayList(orders);
+        ordersTableView.setItems(observableOrders);
     }
 }

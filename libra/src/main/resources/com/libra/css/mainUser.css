@@ -19,3 +19,8 @@
 .menu-item:hover {
     -fx-background-color: #CCCCCC;
 }
+
+.welcome-box {
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}

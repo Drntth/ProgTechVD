@@ -42,8 +42,29 @@ public class ShopPageController {
     private TableColumn<Book, Void> orderColumn;
 
     @FXML
-    private void home() {
+    private void home(){
         mainApplication.loadMainPageUserScene();
+    }
+    @FXML
+    private void listBook() {
+        mainApplication.loadListBookScene();
+    }
+    @FXML
+    private void listMyOrders(){
+        mainApplication.loadMyOrdersPage();
+    }
+    @FXML
+    private void profile() {
+        mainApplication.loadProfileScene();
+    }
+    @FXML
+    private void shopScene() {
+        mainApplication.loadShopScene();
+    }
+    @FXML
+    private void logout() {
+        CurrentUser.removeFirstUser();
+        mainApplication.loadLoginScene();
     }
 
     @FXML

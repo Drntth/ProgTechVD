@@ -32,6 +32,11 @@ public class MainPageUserController {
     }
 
     @FXML
+    private void home(){
+        mainApplication.loadMainPageUserScene();
+    }
+
+    @FXML
     private void logout() {
         CurrentUser.removeFirstUser();
         mainApplication.loadLoginScene();

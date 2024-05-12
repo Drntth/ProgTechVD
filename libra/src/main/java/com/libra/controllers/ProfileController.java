@@ -28,13 +28,39 @@ public class ProfileController {
     @FXML
     private PasswordField passwordField;
 
-    @FXML
     public void setApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
         loadUserData();
     }
 
-    private void loadUserData() {
+
+    @FXML
+    private void listBook() {
+        mainApplication.loadListBookScene();
+    }
+    @FXML
+    private void listMyOrders(){
+        mainApplication.loadMyOrdersPage();
+    }
+    @FXML
+    private void profile() {
+        mainApplication.loadProfileScene();
+    }
+    @FXML
+    private void shopScene() {
+        mainApplication.loadShopScene();
+    }
+    @FXML
+    private void home(){
+        mainApplication.loadMainPageUserScene();
+    }
+    @FXML
+    private void logout() {
+        CurrentUser.removeFirstUser();
+        mainApplication.loadLoginScene();
+    }
+
+    public void loadUserData() {
         CurrentUser currentUser = getCurrentUser();
         if (currentUser != null) {
             nameField.setText(currentUser.getName());

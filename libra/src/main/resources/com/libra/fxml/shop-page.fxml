@@ -11,37 +11,45 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.libra.controllers.ShopPageController"
       alignment="CENTER"
-      prefWidth="1024" prefHeight="768">
+      prefWidth="800" prefHeight="600">
 
-    <MenuBar>
-        <Menu text="Főoldal">
-            <MenuItem text="Főoldal" onAction="#home"/>
+    <MenuBar prefHeight="30.0" prefWidth="800.0">
+        <Menu text="Libra">
+            <MenuItem text="Kezdő oldal" onAction="#home"/>
+            <MenuItem text="Könyvek vásárlása" onAction="#shopScene"/>
+        </Menu>
+        <Menu text="Rendelések">
+            <MenuItem text="Rendeléseim listázása" onAction="#listMyOrders"/>
+        </Menu>
+        <Menu text="Profil">
+            <MenuItem text="Felhasználói profilom" onAction="#profile"/>
+            <MenuItem text="Kilépés" onAction="#logout"/>
         </Menu>
     </MenuBar>
 
-    <TableView fx:id="bookTableView" prefHeight="768">
+    <TableView fx:id="bookTableView" prefHeight="600">
         <columns>
             <TableColumn text="Cím" prefWidth="300" fx:id="titleColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="title"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Szerző" prefWidth="250" fx:id="authorColumn">
+            <TableColumn text="Szerző" prefWidth="150" fx:id="authorColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="author"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Ár" prefWidth="150" fx:id="priceColumn">
+            <TableColumn text="Ár" prefWidth="120" fx:id="priceColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="price"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Mennyiség" prefWidth="150" fx:id="amountColumn">
+            <TableColumn text="Mennyiség" prefWidth="120" fx:id="amountColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="amount"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="174" fx:id="orderColumn">
+            <TableColumn prefWidth="105" fx:id="orderColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="orderButton"/>
                 </cellValueFactory>

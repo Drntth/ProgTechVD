@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
-    <MenuBar prefHeight="26.0" prefWidth="1024.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.libra.controllers.MainPageController">
+    <MenuBar prefHeight="26.0" prefWidth="600.0">
         <Menu text="Könyvek">
             <MenuItem text="Könyvek listázása" onAction="#listBooks"/>
             <MenuItem text="Új könyv hozzáadása" onAction="#addBook"/>

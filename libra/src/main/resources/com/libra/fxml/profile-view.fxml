@@ -3,30 +3,47 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.libra.controllers.ProfileController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefWidth="800" prefHeight="600">
 
-    <VBox styleClass="vbox" spacing="10">
-        <Label text="Profil szerkesztése" style="-fx-font-size: 20px;" />
+    <MenuBar prefHeight="30.0" prefWidth="800.0">
+        <Menu text="Libra">
+            <MenuItem text="Kezdő oldal" onAction="#home"/>
+            <MenuItem text="Könyvek vásárlása" onAction="#shopScene"/>
+        </Menu>
+        <Menu text="Rendelések">
+            <MenuItem text="Rendeléseim listázása" onAction="#listMyOrders"/>
+        </Menu>
+        <Menu text="Profil">
+            <MenuItem text="Felhasználói profilom" onAction="#profile"/>
+            <MenuItem text="Kilépés" onAction="#logout"/>
+        </Menu>
+    </MenuBar>
 
-        <Label text="Név:" />
-        <TextField fx:id="nameField" />
+    <ScrollPane AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+        <content>
+            <VBox spacing="10" alignment="CENTER" prefWidth="790" prefHeight="560">
+                <Label text="Név:" />
+                <TextField fx:id="nameField" />
 
-        <Label text="Felhasználónév:" />
-        <TextField fx:id="usernameField" />
+                <Label text="Felhasználónév:" />
+                <TextField fx:id="usernameField" />
 
-        <Label text="Email:" />
-        <TextField fx:id="emailField" />
+                <Label text="Email:" />
+                <TextField fx:id="emailField" />
 
-        <Label text="Jelszó:" />
-        <PasswordField fx:id="passwordField" />
+                <Label text="Jelszó:" />
+                <PasswordField fx:id="passwordField" />
 
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Mentés" onAction="#saveChanges" />
-            <Button text="Mégse" onAction="#cancelChanges" />
-        </HBox>
-    </VBox>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Mentés" onAction="#saveChanges" />
+                    <Button text="Mégse" onAction="#cancelChanges" />
+                </HBox>
+            </VBox>
+        </content>
+    </ScrollPane>
 
 </AnchorPane>

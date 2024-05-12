@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainApplication extends Application {
+    private ProfileController profileController;
     private Stage stage;
     private String currentUser;
     MainPageController mainPageController = new MainPageController();
@@ -65,7 +66,7 @@ public class MainApplication extends Application {
             Parent mainRoot = loader.load();
             MainPageController mainController = loader.getController();
             mainController.setApp(this);
-            Scene mainScene = new Scene(mainRoot, 1024, 768);
+            Scene mainScene = new Scene(mainRoot, 600, 600);
             mainScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/main.css")).toExternalForm());
             stage.setScene(mainScene);
             stage.setTitle("Főoldal");
@@ -80,7 +81,7 @@ public class MainApplication extends Application {
             Parent mainRoot = loader.load();
             MainPageUserController mainController = loader.getController();
             mainController.setApp(this);
-            Scene mainScene = new Scene(mainRoot, 1024, 768);
+            Scene mainScene = new Scene(mainRoot, 800, 600);
             mainScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/mainUser.css")).toExternalForm());
             stage.setScene(mainScene);
             stage.setTitle("Főoldal");
@@ -95,12 +96,9 @@ public class MainApplication extends Application {
             Parent addBookRoot = loader.load();
             AddBookController addBookController = loader.getController();
             addBookController.setApp(this);
-
             BookFactory bookFactory = new BookFactory();
             addBookController.setBookFactory(bookFactory);
-
             addBookController.addObserver(mainPageController);
-
             Scene addBookScene = new Scene(addBookRoot, 600, 400);
             addBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/addBook.css")).toExternalForm());
             stage.setScene(addBookScene);
@@ -134,7 +132,7 @@ public class MainApplication extends Application {
             Parent listBookRoot = loader.load();
             ListBooksController listBookController = loader.getController();
             listBookController.setApp(this);
-            Scene listBookScene = new Scene(listBookRoot, 1024, 768);
+            Scene listBookScene = new Scene(listBookRoot, 800, 600);
             listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/listBooks.css")).toExternalForm());
             stage.setScene(listBookScene);
             stage.setTitle("Könyvek");
@@ -149,7 +147,7 @@ public class MainApplication extends Application {
             Parent myOrdersRoot = loader.load();
             MyOrdersController myordersController = loader.getController();
             myordersController.setApp(this);
-            Scene myOrdersScene = new Scene(myOrdersRoot, 1024, 768);
+            Scene myOrdersScene = new Scene(myOrdersRoot, 800, 600);
             myOrdersScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/myOrders.css")).toExternalForm());
             stage.setScene(myOrdersScene);
             stage.setTitle("Rendeléseim");
@@ -164,8 +162,8 @@ public class MainApplication extends Application {
             Parent listBookRoot = loader.load();
             ShopPageController shopPageController = loader.getController();
             shopPageController.setApp(this);
-            Scene listBookScene = new Scene(listBookRoot, 1024, 768);
-            listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/listBooks.css")).toExternalForm());
+            Scene listBookScene = new Scene(listBookRoot, 800, 600);
+            listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/shop.css")).toExternalForm());
             stage.setScene(listBookScene);
             stage.setTitle("Könyv megrendelése");
             stage.centerOnScreen();
@@ -173,21 +171,26 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
+
     public void loadProfileScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/com/libra/fxml/profile-view.fxml"));
             Parent root = loader.load();
-            ProfileController controller = loader.getController();
-            controller.setApp(this);
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
+            profileController = loader.getController();
+            profileController.setApp(this);
+            Scene scene = new Scene(root, 800, 600);
             scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/profile.css")).toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Profil szerkesztése");
             stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void showProfileEditor() {
+        if (profileController != null) {
+            profileController.loadUserData();
         }
     }
     public String getCurrentUser() {

@@ -3,14 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.libra.controllers.MainPageUserController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0">
 
-    <MenuBar prefHeight="26.0" prefWidth="1024.0">
-        <Menu text="Könyvek">
-            <MenuItem text="Könyvek listázása" onAction="#listBooks"/>
+    <!-- Menüsor -->
+    <MenuBar prefHeight="30.0" prefWidth="800.0">
+        <Menu text="Libra">
+            <MenuItem text="Kezdő oldal" onAction="#home"/>
             <MenuItem text="Könyvek vásárlása" onAction="#shopBooks"/>
         </Menu>
         <Menu text="Rendelések">
@@ -21,5 +24,25 @@
             <MenuItem text="Kilépés" onAction="#logout"/>
         </Menu>
     </MenuBar>
+
+    <!-- Üdvözlő szöveg és ismertető -->
+    <VBox style="-fx-background-color: rgba(255, 255, 255, 0.5);"
+          styleClass="welcome-box"
+          prefWidth="790" prefHeight="570"
+          AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Üdvözöljük a Libra alkalmazásánál" />
+        <Label style="-fx-font-size: 14px;" text="Köszönjük, hogy használod az alkalmazásunkat. Az alkalmazásunk a következő funkciókat kínálja:" />
+
+        <ListView style="-fx-font-size: 14px;">
+            <Text>Mindenki számára elérhető széleskörű könyvkínálat online könyvárakkal</Text>
+            <Text>Könnyű és gyors böngészés kategóriák és témák szerint</Text>
+            <Text>Biztonságos vásárlási lehetőség egyszerűen és kényelmesen</Text>
+            <Text>Rendeléseim nyomon követése és kezelése a felhasználói profilból</Text>
+        </ListView>
+
+        <Label style="-fx-font-size: 14px;" text="Fedezd fel kedvenc témáidat, böngéssz az online könyvtárunkban és élvezd a vásárlás élményét az alkalmazásunkkal!" />
+
+    </VBox>
 
 </AnchorPane>

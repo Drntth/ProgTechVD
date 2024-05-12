@@ -1,6 +1,7 @@
 .root {
-    -fx-font-family: "Arial";
-    -fx-background-color: #f0f0f0;
+    -fx-font-family: 'Times New Roman';
+    -fx-background-color: #881798;
+    -fx-font-size: 15px;
 }
 
 .label {
