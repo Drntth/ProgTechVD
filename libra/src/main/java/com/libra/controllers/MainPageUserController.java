@@ -22,6 +22,16 @@ public class MainPageUserController {
     private void profilChanging(){mainApplication.loadProfileScene();}
 
     @FXML
+    private void shopBooks(){
+        mainApplication.loadShopScene();
+    }
+
+    @FXML
+    private void myOrders(){
+        mainApplication.loadMyOrdersPage();
+    }
+
+    @FXML
     private void logout() {
         CurrentUser.removeFirstUser();
         mainApplication.loadLoginScene();

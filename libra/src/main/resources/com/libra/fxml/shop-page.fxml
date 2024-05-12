@@ -9,7 +9,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/17.0.2-ea"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.libra.controllers.ListBooksController"
+      fx:controller="com.libra.controllers.ShopPageController"
       alignment="CENTER"
       prefWidth="1024" prefHeight="768">
 
@@ -39,6 +39,11 @@
             <TableColumn text="Mennyiség" prefWidth="150" fx:id="amountColumn">
                 <cellValueFactory>
                     <PropertyValueFactory property="amount"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="174" fx:id="orderColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="orderButton"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

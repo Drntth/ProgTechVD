@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import com.libra.models.CurrentUser;
 import javafx.stage.StageStyle;
-
 import java.util.List;
 import java.io.IOException;
 import java.util.Objects;
@@ -30,7 +29,6 @@ public class MainApplication extends Application {
         loadLoginScene();
         stage.show();
     }
-
     public void loadLoginScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/login-view.fxml"));
@@ -46,7 +44,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public void loadRegisterScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/register-view.fxml"));
@@ -62,7 +59,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public void loadMainPageScene(){
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/main-page.fxml"));
@@ -93,7 +89,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public void loadAddBookScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/addBook-view.fxml"));
@@ -115,8 +110,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
-
     public void loadDeleteBookScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/deleteBook-view.fxml"));
@@ -135,7 +128,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public void loadListBookScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/listBooks-view.fxml"));
@@ -145,13 +137,42 @@ public class MainApplication extends Application {
             Scene listBookScene = new Scene(listBookRoot, 1024, 768);
             listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/listBooks.css")).toExternalForm());
             stage.setScene(listBookScene);
+            stage.setTitle("Könyvek");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadMyOrdersPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/my-orders.fxml"));
+            Parent myOrdersRoot = loader.load();
+            MyOrdersController myordersController = loader.getController();
+            myordersController.setApp(this);
+            Scene myOrdersScene = new Scene(myOrdersRoot, 1024, 768);
+            myOrdersScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/myOrders.css")).toExternalForm());
+            stage.setScene(myOrdersScene);
+            stage.setTitle("Rendeléseim");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadShopScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/shop-page.fxml"));
+            Parent listBookRoot = loader.load();
+            ShopPageController shopPageController = loader.getController();
+            shopPageController.setApp(this);
+            Scene listBookScene = new Scene(listBookRoot, 1024, 768);
+            listBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/listBooks.css")).toExternalForm());
+            stage.setScene(listBookScene);
             stage.setTitle("Könyv megrendelése");
             stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     public void loadProfileScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/com/libra/fxml/profile-view.fxml"));
@@ -169,16 +190,12 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
     public String getCurrentUser() {
         return currentUser;
     }
-
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
-
-
     public static void main(String[] args) {
         launch();
     }

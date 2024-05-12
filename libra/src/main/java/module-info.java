@@ -8,4 +8,5 @@ module com.libra {
     exports com.libra;
     exports com.libra.controllers;
     opens com.libra.controllers to javafx.fxml;
+    opens com.libra.models to javafx.base;
 }

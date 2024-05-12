@@ -33,8 +33,6 @@ public class ListBooksController {
     @FXML
     private TableColumn<Book, Integer> amountColumn;
     @FXML
-    private TableColumn<Book, Void> orderColumn;
-    @FXML
     private void home() {
         int id = 0;
         int roleId = accessFirstUserRole(id);
@@ -80,37 +78,6 @@ public class ListBooksController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        orderColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(null));
-
-        orderColumn.setCellFactory(param -> {
-            TableCell<Book, Void> cell = new TableCell<>() {
-                private final Button orderButton = new Button("Rendelés");
-
-                {
-                    orderButton.setOnAction(event -> {
-                        Book selectedBook = getTableView().getItems().get(getIndex());
-                        if (selectedBook != null) {
-                            showOrderDialog(selectedBook);
-                        } else {
-                            System.err.println("Nem sikerült a kiválasztott könyvet megkapni.");
-                        }
-                    });
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(orderButton);
-                    }
-                }
-            };
-            return cell;
-        });
-
     }
 
     public int accessFirstUserRole(int roleId) {
@@ -172,7 +139,7 @@ public class ListBooksController {
             }
         });
 
-        root.getChildren().addAll(titleLabel, authorLabel, priceLabel, quantityField, shippingAddressField, orderButton); // Add shippingAddressField to the layout
+        root.getChildren().addAll(titleLabel, authorLabel, priceLabel, quantityField, shippingAddressField, orderButton);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

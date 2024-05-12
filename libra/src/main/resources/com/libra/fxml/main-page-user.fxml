@@ -11,11 +11,10 @@
     <MenuBar prefHeight="26.0" prefWidth="1024.0">
         <Menu text="Könyvek">
             <MenuItem text="Könyvek listázása" onAction="#listBooks"/>
-            <MenuItem text="Könyvek vásárlása"/>
+            <MenuItem text="Könyvek vásárlása" onAction="#shopBooks"/>
         </Menu>
         <Menu text="Rendelések">
-            <MenuItem text="Rendeléseim listázása"/>
-            <MenuItem text="Rendeléseim állapota"/>
+            <MenuItem text="Rendeléseim listázása" onAction="#myOrders"/>
         </Menu>
         <Menu text="Profil">
             <MenuItem text="Felhasználói profilom" onAction="#profilChanging"/>

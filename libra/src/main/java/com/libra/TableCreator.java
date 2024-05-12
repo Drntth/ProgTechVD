@@ -59,14 +59,15 @@ public class TableCreator {
             statement.executeUpdate(createStatesTableSQL);
             statement.executeUpdate(createOrdersTableSQL);
 
-            // Adatok beszúrása a roles táblába
-            String insertRolesSQL = "INSERT INTO roles (id, name) VALUES (1, 'admin'), (2, 'user');";
-            statement.executeUpdate(insertRolesSQL);
-
-            // Adatok beszúrása a users táblába
             String insertUsersSQL = "INSERT INTO users (id, name, username, email, password, role_id) " +
                     "VALUES (1, 'admin', 'admin', 'admin@admin.com', 'admin', 1);";
             statement.executeUpdate(insertUsersSQL);
+
+            String insertStatesSQL = "INSERT INTO states (id, name) VALUES (1, 'Feldolgozás alatt'), (2, 'Összekészítés'), (3, 'Száálítás alatt'), (4, 'Kiszállítva');";
+            statement.executeUpdate(insertStatesSQL);
+
+            String insertRolesSQL = "INSERT INTO roles (id, name) VALUES (1, 'admin'), (2, 'user');";
+            statement.executeUpdate(insertRolesSQL);
 
             System.out.println("Adattáblák létrehozva és adatok beszúrva: roles, users, book, states, orders");
 

@@ -5,7 +5,9 @@ import com.libra.factories.BookFactory;
 import com.libra.observers.BookAddedObserver;
 import com.libra.models.Book;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 import java.sql.*;
@@ -55,43 +57,6 @@ public class AddBookController {
         double price = Double.parseDouble(priceField.getText());
         int amount = Integer.parseInt(amountField.getText());
 
-        Book book = bookFactory.createBook(title, author, price, amount);
-
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
-            String selectQuery = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
-            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
-                selectStmt.setString(1, book.getTitle());
-                selectStmt.setString(2, book.getAuthor());
-                try (ResultSet resultSet = selectStmt.executeQuery()) {
-                    if (resultSet.next() && resultSet.getInt(1) > 0) {
-                        System.err.println("Ez a könyv már szerepel az adatbázisban.");
-                        return;
-                    }
-                }
-            }
-
-            String query = "INSERT INTO book (author, title, price, amount) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, book.getAuthor());
-                stmt.setString(2, book.getTitle());
-                stmt.setDouble(3, book.getPrice());
-                stmt.setInt(4, book.getAmount());
-
-                int rowsAffected = stmt.executeUpdate();
-                if (rowsAffected > 0) {
-                    notifyObservers(book.getTitle());
-                } else {
-                    System.err.println("Nem sikerült hozzáadni a könyvet.");
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Hiba a könyv hozzáadása közben: " + e.getMessage());
-        }
-
-        mainApplication.loadMainPageScene();
-    }
-
-    public void addBook(String title, String author, double price, int amount) {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
             String selectQuery = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
             try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
@@ -99,29 +64,85 @@ public class AddBookController {
                 selectStmt.setString(2, author);
                 try (ResultSet resultSet = selectStmt.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
-                        System.err.println("Ez a könyv már szerepel az adatbázisban.");
-                        return;
+                        conn.close();
+                        showUpdateConfirmationDialog(title, author, price, amount);
+                    } else {
+                        insertNewBook(conn, title, author, price, amount);
                     }
                 }
             }
-
-            String query = "INSERT INTO book (author, title, price, amount) VALUES (?, ?, ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, author);
-                stmt.setString(2, title);
-                stmt.setDouble(3, price);
-                stmt.setInt(4, amount);
-
-                int rowsAffected = stmt.executeUpdate();
-                if (rowsAffected > 0) {
-                     System.out.println("A könyv hozzáadva: " + title);
-                } else {
-                    System.err.println("Nem sikerült hozzáadni a könyvet.");
-                }
-            }
         } catch (SQLException e) {
-            System.err.println("Hiba a könyv hozzáadása közben: " + e.getMessage());
+            displayErrorDialog("Hiba a könyv hozzáadása közben: " + e.getMessage());
         }
+
+        mainApplication.loadMainPageScene();
+    }
+
+    private void insertNewBook(Connection conn, String title, String author, double price, int amount) throws SQLException {
+        String query = "INSERT INTO book (author, title, price, amount) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, author);
+            stmt.setString(2, title);
+            stmt.setDouble(3, price);
+            stmt.setInt(4, amount);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                notifyObservers(title);
+            } else {
+                displayErrorDialog("Nem sikerült hozzáadni a könyvet.");
+            }
+        }
+    }
+
+    private void showUpdateConfirmationDialog(String title, String author, double price, int amount) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Könyv már szerepel az adatbázisban");
+        alert.setHeaderText(null);
+        alert.setContentText("Ez a könyv már szerepel az adatbázisban!\nSzeretné az árát és mennyiségét frissíteni?");
+
+        ButtonType yesButton = new ButtonType("Igen");
+        ButtonType noButton = new ButtonType("Nem");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        alert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == yesButton) {
+                try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
+                    updateBookPriceAndAmount(conn, title, author, price, amount);
+                } catch (SQLException e) {
+                    displayErrorDialog("Hiba a könyv frissítése közben: " + e.getMessage());
+                }
+            } else if (buttonType == noButton) {
+                clearInputFields();
+            }
+        });
+    }
+
+    private void updateBookPriceAndAmount(Connection conn, String title, String author, double price, int amount) throws SQLException {
+        String updateQuery = "UPDATE book SET price = ?, amount = amount + ? WHERE title = ? AND author = ?";
+        try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+            updateStmt.setDouble(1, price);
+            updateStmt.setInt(2, amount);
+            updateStmt.setString(3, title);
+            updateStmt.setString(4, author);
+            updateStmt.executeUpdate();
+        }
+    }
+
+    private void clearInputFields() {
+        titleField.clear();
+        authorField.clear();
+        priceField.clear();
+        amountField.clear();
+    }
+
+    private void displayErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Hiba");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public void addObserver(BookAddedObserver observer) {
@@ -133,4 +154,5 @@ public class AddBookController {
             observer.onBookAdded(title);
         }
     }
+
 }
