@@ -51,6 +51,4 @@ public class MainPageController implements BookAddedObserver, BookDeletedObserve
 
         alert.showAndWait();
     }
-
-    // TODO: main page controller
 }

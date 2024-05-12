@@ -14,11 +14,16 @@ import java.util.List;
 import java.io.IOException;
 import java.util.Objects;
 
+import java.util.logging.Logger;
+
 public class MainApplication extends Application {
+    private static final Logger logger = Logger.getLogger(MainPageController.class.getName());
+
     private ProfileController profileController;
     private Stage stage;
     private String currentUser;
     MainPageController mainPageController = new MainPageController();
+
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
@@ -30,6 +35,7 @@ public class MainApplication extends Application {
         loadLoginScene();
         stage.show();
     }
+
     public void loadLoginScene() {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("fxml/login-view.fxml"));
@@ -42,7 +48,7 @@ public class MainApplication extends Application {
             stage.setTitle("Bejelentkezés");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading login scene: " + e.getMessage());
         }
     }
     public void loadRegisterScene() {
@@ -57,7 +63,7 @@ public class MainApplication extends Application {
             stage.setTitle("Regisztráció");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading register scene: " + e.getMessage());
         }
     }
     public void loadMainPageScene(){
@@ -72,7 +78,7 @@ public class MainApplication extends Application {
             stage.setTitle("Főoldal");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading main scene: " + e.getMessage());
         }
     }
     public void loadMainPageUserScene(){
@@ -87,7 +93,7 @@ public class MainApplication extends Application {
             stage.setTitle("Főoldal");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading main user scene: " + e.getMessage());
         }
     }
     public void loadAddBookScene() {
@@ -96,8 +102,6 @@ public class MainApplication extends Application {
             Parent addBookRoot = loader.load();
             AddBookController addBookController = loader.getController();
             addBookController.setApp(this);
-            BookFactory bookFactory = new BookFactory();
-            addBookController.setBookFactory(bookFactory);
             addBookController.addObserver(mainPageController);
             Scene addBookScene = new Scene(addBookRoot, 600, 400);
             addBookScene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/addBook.css")).toExternalForm());
@@ -105,7 +109,7 @@ public class MainApplication extends Application {
             stage.setTitle("Könyv hozzáadása");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading add book scene: " + e.getMessage());
         }
     }
     public void loadDeleteBookScene() {
@@ -123,7 +127,7 @@ public class MainApplication extends Application {
             stage.setTitle("Könyv eltávolítása");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading delete book scene: " + e.getMessage());
         }
     }
     public void loadListBookScene() {
@@ -138,7 +142,7 @@ public class MainApplication extends Application {
             stage.setTitle("Könyvek");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading list books page scene: " + e.getMessage());
         }
     }
     public void loadMyOrdersPage() {
@@ -153,7 +157,7 @@ public class MainApplication extends Application {
             stage.setTitle("Rendeléseim");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading my orders page scene: " + e.getMessage());
         }
     }
     public void loadShopScene() {
@@ -168,7 +172,7 @@ public class MainApplication extends Application {
             stage.setTitle("Könyv megrendelése");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading shop page scene: " + e.getMessage());
         }
     }
 
@@ -184,7 +188,7 @@ public class MainApplication extends Application {
             stage.setTitle("Profil szerkesztése");
             stage.centerOnScreen();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error loading profile page scene: " + e.getMessage());
         }
     }
 

@@ -11,7 +11,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class DeleteBookController {
+    private static final Logger logger = Logger.getLogger(DeleteBookController.class.getName());
     private MainApplication mainApplication;
     private List<BookDeletedObserver> observers = new ArrayList<>();
     @FXML
@@ -49,7 +53,7 @@ public class DeleteBookController {
                 selectStmt.setString(2, author);
                 try (ResultSet resultSet = selectStmt.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) == 0) {
-                        System.err.println("A könyv nem található az adatbázisban.");
+                        logger.warning("A könyv nem található az adatbázisban.");
                         return;
                     }
                 }
@@ -63,11 +67,11 @@ public class DeleteBookController {
                 if (rowsAffected > 0) {
                     notifyObservers(title);
                 } else {
-                    System.err.println("Nem sikerült törölni a könyvet.");
+                    logger.warning("Nem sikerült törölni a könyvet.");
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Hiba a könyv törlése közben: " + e.getMessage());
+            logger.log(Level.SEVERE, "Hiba a könyv törlése közben: " + e.getMessage(), e);
         }
 
         mainApplication.loadMainPageScene();
@@ -81,7 +85,7 @@ public class DeleteBookController {
                 selectStmt.setString(2, title);
                 try (ResultSet resultSet = selectStmt.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) == 0) {
-                        System.err.println("A könyv nem található az adatbázisban.");
+                        logger.warning("A könyv nem található az adatbázisban.");
                         return;
                     }
                 }
@@ -93,13 +97,13 @@ public class DeleteBookController {
                 deleteStmt.setString(2, title);
                 int rowsAffected = deleteStmt.executeUpdate();
                 if (rowsAffected > 0) {
-                     System.out.println("A könyv sikeresen törölve lett: " + title);
+                    logger.info("A könyv sikeresen törölve lett: " + title);
                 } else {
                     System.err.println("Nem sikerült törölni a könyvet.");
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Hiba a könyv törlése közben: " + e.getMessage());
+            logger.log(Level.SEVERE, "Hiba a könyv törlése közben: " + e.getMessage(), e);
         }
     }
 

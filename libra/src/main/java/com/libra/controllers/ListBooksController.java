@@ -4,6 +4,7 @@ import com.libra.MainApplication;
 import com.libra.dao.BookDAO;
 import com.libra.exceptions.DatabaseException;
 import com.libra.models.Book;
+import com.libra.observers.OrderAddedObserver;
 import com.libra.util.MessageHandler;
 import javafx.beans.property.*;
 import javafx.fxml.FXML;
@@ -16,11 +17,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.libra.models.CurrentUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ListBooksController {
+    private static final Logger logger = Logger.getLogger(ListBooksController.class.getName());
     private MainApplication mainApplication;
     private BookDAO bookDAO = new BookDAO();
+
+    private List<OrderAddedObserver> observers = new ArrayList<>();
 
     @FXML
     private TableView<Book> bookTableView;
@@ -75,6 +83,16 @@ public class ListBooksController {
             return firstUser.getRoleId();
         } else {
             return 0;
+        }
+    }
+
+    public void addObserver(OrderAddedObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers(String title, String shippingAddress, int amount) {
+        for (OrderAddedObserver observer : observers) {
+            observer.onOrderAdded(title, shippingAddress, amount);
         }
     }
 }

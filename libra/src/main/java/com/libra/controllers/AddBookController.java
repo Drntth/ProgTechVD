@@ -1,7 +1,6 @@
 package com.libra.controllers;
 
 import com.libra.MainApplication;
-import com.libra.factories.BookFactory;
 import com.libra.observers.BookAddedObserver;
 import com.libra.models.Book;
 import javafx.fxml.FXML;
@@ -14,10 +13,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AddBookController {
+    private static final Logger logger = Logger.getLogger(AddBookController.class.getName());
     private MainApplication mainApplication;
     private List<BookAddedObserver> observers = new ArrayList<>();
-    private BookFactory bookFactory;
     @FXML
     private TextField titleField;
     @FXML
@@ -46,10 +48,6 @@ public class AddBookController {
         addButton.setOnAction(event -> addBook());
     }
 
-    public void setBookFactory(BookFactory bookFactory) {
-        this.bookFactory = bookFactory;
-    }
-
     @FXML
     public void addBook() {
         String title = titleField.getText();
@@ -57,15 +55,24 @@ public class AddBookController {
         double price = Double.parseDouble(priceField.getText());
         int amount = Integer.parseInt(amountField.getText());
 
+        Book book = new Book.Builder()
+                .setTitle(title)
+                .setAuthor(author)
+                .setPrice(price)
+                .setAmount(amount)
+                .build();
+
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
             String selectQuery = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
             try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
-                selectStmt.setString(1, title);
-                selectStmt.setString(2, author);
+                selectStmt.setString(1, book.getTitle());
+                selectStmt.setString(2, book.getAuthor());
                 try (ResultSet resultSet = selectStmt.executeQuery()) {
                     if (resultSet.next() && resultSet.getInt(1) > 0) {
                         conn.close();
                         showUpdateConfirmationDialog(title, author, price, amount);
+                        logger.warning("Ez a könyv már szerepel az adatbázisban.");
+                        return;
                     } else {
                         insertNewBook(conn, title, author, price, amount);
                     }
@@ -73,9 +80,43 @@ public class AddBookController {
             }
         } catch (SQLException e) {
             displayErrorDialog("Hiba a könyv hozzáadása közben: " + e.getMessage());
+            logger.log(Level.SEVERE, "Hiba a könyv hozzáadása közben: " + e.getMessage(), e);
         }
 
         mainApplication.loadMainPageScene();
+    }
+
+    public void addBook(Book book) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
+            String selectQuery = "SELECT COUNT(*) FROM book WHERE title = ? AND author = ?";
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+                selectStmt.setString(1, book.getTitle());
+                selectStmt.setString(2, book.getAuthor());
+                try (ResultSet resultSet = selectStmt.executeQuery()) {
+                    if (resultSet.next() && resultSet.getInt(1) > 0) {
+                        logger.warning("Ez a könyv már szerepel az adatbázisban.");
+                        return;
+                    }
+                }
+            }
+
+            String query = "INSERT INTO book (author, title, price, amount) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, book.getAuthor());
+                stmt.setString(2, book.getTitle());
+                stmt.setDouble(3, book.getPrice());
+                stmt.setInt(4, book.getAmount());
+
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    logger.info(String.format("A könyv hozzáadva: %s", book.getTitle()));
+                } else {
+                    logger.severe("Nem sikerült hozzáadni a könyvet.");
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe(String.format("Hiba a könyv hozzáadása közben: %s", e.getMessage()));
+        }
     }
 
     private void insertNewBook(Connection conn, String title, String author, double price, int amount) throws SQLException {

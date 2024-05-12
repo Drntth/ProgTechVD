@@ -73,4 +73,60 @@ public class Order {
     public void setStateId(int stateId) {
         this.stateId = stateId;
     }
+
+    private Order(Builder builder) {
+        this.userId = builder.userId;
+        this.address = builder.address;
+        this.bookId = builder.bookId;
+        this.amount = builder.amount;
+        this.price = builder.price;
+        this.stateId = builder.stateId;
+    }
+
+    public static class Builder {
+        private int userId;
+        private String address;
+        private int bookId;
+        private int amount;
+        private double price;
+        private int stateId;
+
+        public Builder() {
+
+        }
+
+        public Builder setUserId(int userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder setAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder setBookId(int bookId) {
+            this.bookId = bookId;
+            return this;
+        }
+
+        public Builder setAmount(int amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setStateId(int stateId) {
+            this.stateId = stateId;
+            return this;
+        }
+
+        public Order build() {
+            return new Order(this);
+        }
+    }
 }
