@@ -6,13 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import com.libra.MainApplication;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.libra.dao.UserDAO;
+import com.libra.exceptions.DatabaseException;
+import com.libra.models.User;
+import com.libra.util.MessageHandler;
 
 public class RegisterController {
 
@@ -39,8 +37,11 @@ public class RegisterController {
     @FXML
     private Hyperlink loginLink;
 
+    private UserDAO userDAO;
+
     public void setApp(MainApplication mainApplication) {
         this.mainApplication = mainApplication;
+        this.userDAO = new UserDAO(); // Inicializáljuk a UserDAO-t
     }
 
     public void initialize() {
@@ -71,27 +72,18 @@ public class RegisterController {
                 return;
             }
 
-            try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.sqlite3")) {
-                String checkUsernameSQL = "SELECT COUNT(*) FROM users WHERE username = ?";
-                PreparedStatement checkStatement = conn.prepareStatement(checkUsernameSQL);
-                checkStatement.setString(1, username);
-                if (checkStatement.executeQuery().getInt(1) > 0) {
+            try {
+                if (userDAO.isUsernameTaken(username)) {
                     displayErrorDialog("Ezzel a felhasználónévvel már regisztráltak.");
                     return;
                 }
 
-                String insertUserSQL = "INSERT INTO users (name, username, email, password, role_id) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = conn.prepareStatement(insertUserSQL);
-                preparedStatement.setString(1, name);
-                preparedStatement.setString(2, username);
-                preparedStatement.setString(3, email);
-                preparedStatement.setString(4, password);
-                preparedStatement.setInt(5, 2);
-                preparedStatement.executeUpdate();
+                User newUser = new User(name, username, email, password);
+                userDAO.registerUser(newUser);
 
                 System.out.println("Felhasználó regisztrálva: " + username);
                 mainApplication.loadLoginScene();
-            } catch (SQLException e) {
+            } catch (DatabaseException e) {
                 displayErrorDialog("Hiba a regisztráció közben: " + e.getMessage());
             }
         });
@@ -107,10 +99,6 @@ public class RegisterController {
     }
 
     private void displayErrorDialog(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Hiba");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        MessageHandler.showError(message);
     }
 }
