@@ -13,8 +13,7 @@ public class AddBookTest {
     @Test
     void testAddBook() {
         AddBookController addBookController = new AddBookController();
-
-        String title = "Teszt könyv címe";
+        String title = "Teszt cím";
         String author = "Teszt szerző";
         double price = 19.99;
         int amount = 10;
